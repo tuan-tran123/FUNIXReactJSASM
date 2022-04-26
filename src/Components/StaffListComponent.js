@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
 
-const required = (val) => val && val.length;
+const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len
 const minLength = len => val => val && val.length >= len
 const isNumber = val => !isNaN(Number(val))
+
 
 function RenderStaff({staff}) {
     return (
@@ -66,6 +67,7 @@ class StaffList extends Component {
         
         
     }  
+    
 
     
     handleSearch(event) {
@@ -88,7 +90,7 @@ class StaffList extends Component {
             
             
         }).map((staff) => {
-            console.log(<staffList staff={staff} />)
+            
             return (
                 <div key={staff.id} className="col-6 col-md-4 col-lg-2 mt-3 mb-3" >
                 <RenderStaff staff={staff} />  
@@ -97,7 +99,7 @@ class StaffList extends Component {
         )
 
         });
-       
+       console.log(staffList);
         
     return (
         <div className='container'>
@@ -154,7 +156,7 @@ class StaffList extends Component {
                                         className="text-danger"
                                         show="touched"
                                         messages={{ 
-                                            required: 'Yêu cầu  ',
+                                            required: 'Yêu cầu nhập ',
                                             minLength: 'nhập nhiều hơn 2 ký tự',
                                             maxLength: 'Yêu cầu nhập ít hơn 30 ký tự'
                                         }}
@@ -164,9 +166,18 @@ class StaffList extends Component {
                             <Row className='form-group'>
                                 <Label md={4}htmlFor="doB">Ngày sinh</Label>
                                  <Col md={8}>
-                                    <Control.text model='.doB' className='form-control' id='doB' name='doB' 
-                                        value={this.state.doB}
-                                        />
+                                    <Control.text model='.doB' className='form-control' id='doB' name='doB'
+                                        value={this.state.doB} validators={{ required }}
+                                        
+                                    />
+                                    <Errors
+                                        model=".doB"
+                                        className="text-danger"
+                                        show="touched"
+                                        messages={{ 
+                                            required: 'Yêu cầu nhập',                                           
+                                        }}
+                                    />                           
                                                                         
                                 </Col>
                             </Row>
@@ -174,8 +185,17 @@ class StaffList extends Component {
                                 <Label md={4}htmlFor="startDate">Ngày vào công ty</Label>
                                  <Col md={8}>
                                     <Control.text model='.startDate' className='form-control' id='startDate' name='startDate' 
-                                        value={this.state.startDate}
-                                       />
+                                        value={this.state.startDate} validators={{ required }}
+                                        
+                                    />
+                                    <Errors
+                                        model=".startDate"
+                                        className="text-danger"
+                                        show="touched"
+                                        messages={{ 
+                                            required: 'Yêu cầu nhập',                                           
+                                        }}
+                                    />                           
                                                                       
                                 </Col>
                             </Row>
